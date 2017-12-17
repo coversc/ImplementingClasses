@@ -54,6 +54,8 @@ class Point(object):
         self.x1 = x
         self.y1 = y
 
+        self.distance = 0
+
     def __repr__(self):
         return 'Point({}, {})'.format(self.x,self.y)
 
@@ -61,15 +63,21 @@ class Point(object):
         return Point(self.x, self.y)
 
     def move_to(self, x, y):
+        old_point = Point(self.x, self.y)
         self.x = x
         self.y = y
         self.moves = self.moves + 1
+
+        self.distance = self.distance + self.get_distance_from(old_point)
         return Point(x, y)
 
     def move_by(self, dx, dy):
+        old_point = Point(self.x, self.y)
         self.x = self.x + dx
         self.y = self.y + dy
         self.moves = self.moves + 1
+
+        self.distance = self.distance + self.get_distance_from(old_point)
         return Point(self.x, self.y)
 
     def get_number_of_moves_made(self):
@@ -83,17 +91,7 @@ class Point(object):
         return self.get_distance_from(start_point)
 
     def get_distance_traveled(self):
-        distance = 0
-        for k in range(n):
-            point.move_by(self, k + 1)
-                p2.move_by(0, k + 1)
-                p3.move_by(k + 1, 0)
-                p4.move_to(k + 1, 555)
-
-
-
-
-            distance =
+        return self.distance
 
 def run_test_init():
     """
@@ -142,7 +140,7 @@ def run_test_init():
         print('Expected for p2: 100 -40')
         print('Actual for p2:  ', p2.x, p2.y)
     """
-    # ------------------------------------------------------------------
+    ##------------------------------------------------------------------
     # DONE: 3.
     #   a. Read the above specification of the   __init__   method.
     #        Do NOT proceed until you understand WHAT it should do
@@ -907,7 +905,7 @@ def run_test_get_distance_traveled():
     print('-----------------------------------------------------------')
     print('Testing the   get_distance_traveled   method')
     print('of the Point class.')
-    print('-----------------------------------------------------------')'
+    print('-----------------------------------------------------------')
 
     p1 = Point(20, 30)
     p1.move_to(21, 30)
